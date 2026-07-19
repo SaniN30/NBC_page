@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 
+import { Navbar } from "@/components/navbar"
 import { isSector, SECTORS } from "@/lib/sectors"
 
 export function generateStaticParams() {
@@ -18,7 +19,11 @@ export default async function SectorLayout({
 
   return (
     <div data-sector={sector} className="min-h-svh bg-background">
-      {children}
+      <Navbar sector={sector} />
+      {/* key remounts on sector switch so the world cross-fades in */}
+      <div key={sector} className="sector-enter">
+        {children}
+      </div>
     </div>
   )
 }

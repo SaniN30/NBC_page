@@ -12,14 +12,16 @@ export default async function SectorHome({
 
   return (
     <main className="mx-auto flex min-h-svh max-w-4xl flex-col items-start justify-center gap-6 px-6">
-      <p className="text-sector font-medium">{info.name}</p>
+      <p className="font-medium text-sector">{info.name}</p>
       <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
         {info.headline}
       </h1>
-      <p className="max-w-prose text-lg text-muted-foreground">{info.tagline}</p>
+      <p className="max-w-prose text-lg text-muted-foreground">
+        {info.tagline}
+      </p>
       <Link
         href={`/${sector}/contact`}
-        className="bg-sector text-sector-foreground rounded-full px-6 py-3 font-medium"
+        className="rounded-full bg-sector px-6 py-3 font-medium text-sector-foreground"
       >
         Contact Us
       </Link>

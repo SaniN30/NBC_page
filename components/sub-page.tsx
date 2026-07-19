@@ -15,7 +15,7 @@ export async function SubPage({ params, title, description }: SubPageProps) {
 
   return (
     <main className="mx-auto flex min-h-svh max-w-4xl flex-col justify-center gap-4 px-6">
-      <p className="text-sector font-medium">{SECTOR_INFO[sector].name}</p>
+      <p className="font-medium text-sector">{SECTOR_INFO[sector].name}</p>
       <h1 className="text-4xl font-semibold tracking-tight">{title}</h1>
       <p className="max-w-prose text-lg text-muted-foreground">{description}</p>
     </main>

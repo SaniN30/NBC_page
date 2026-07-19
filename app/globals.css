@@ -132,6 +132,28 @@
     }
 }
 
+/* Cross-fade + lift when switching sectors or pages */
+.sector-enter {
+  animation: sector-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes sector-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sector-enter {
+    animation: none;
+  }
+}
+
 /* Per-sector accent themes: subtle, light, on a white base */
 [data-sector="consultancy"] {
   --sector: oklch(0.45 0.06 250); /* muted steel blue */
