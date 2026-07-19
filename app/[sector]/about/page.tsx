@@ -67,6 +67,39 @@ export default async function AboutPage({
             </div>
           ))}
         </div>
+        <h2 className="mt-20 text-3xl font-semibold tracking-tight">
+          Leadership
+        </h2>
+        {/* ponytail: placeholder leadership — swap initials, names, and roles for real people + photos */}
+        <div className="mt-10 grid gap-10 sm:grid-cols-2">
+          {[
+            {
+              initials: "FN",
+              name: "Founder Name",
+              role: "Founder & Managing Director",
+              bio: "Two decades across petroleum and fertilizer plant operations, projects, and workforce management.",
+            },
+            {
+              initials: "DN",
+              name: "Director Name",
+              role: "Director — Operations",
+              bio: "Leads client delivery: engineering engagements, crew mobilisation, and site support.",
+            },
+          ].map((person) => (
+            <div key={person.name} className="flex gap-5">
+              <span className="flex size-16 shrink-0 items-center justify-center rounded-full bg-sector-soft text-lg font-semibold text-sector">
+                {person.initials}
+              </span>
+              <div>
+                <h3 className="text-lg font-medium">{person.name}</h3>
+                <p className="text-sm font-medium text-sector">{person.role}</p>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/70">
+                  {person.bio}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
     </PageShell>
   )

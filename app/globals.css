@@ -2,6 +2,8 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme inline {
     --font-sans: var(--font-sans);
     --font-heading: var(--font-sans);
@@ -85,6 +87,27 @@
 }
 
 
+.dark {
+    --background: oklch(0.16 0.008 250);
+    --foreground: oklch(0.94 0.005 250);
+    --card: oklch(0.2 0.008 250);
+    --card-foreground: oklch(0.94 0.005 250);
+    --popover: oklch(0.2 0.008 250);
+    --popover-foreground: oklch(0.94 0.005 250);
+    --primary: oklch(0.94 0.005 250);
+    --primary-foreground: oklch(0.2 0.008 250);
+    --secondary: oklch(0.24 0.008 250);
+    --secondary-foreground: oklch(0.94 0.005 250);
+    --muted: oklch(0.24 0.008 250);
+    --muted-foreground: oklch(0.72 0.01 250);
+    --accent: oklch(0.24 0.008 250);
+    --accent-foreground: oklch(0.94 0.005 250);
+    --destructive: oklch(0.6 0.2 27);
+    --border: oklch(0.29 0.008 250);
+    --input: oklch(0.29 0.008 250);
+    --ring: oklch(0.6 0.01 250);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -106,6 +129,45 @@
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 0.6),
     0 8px 32px oklch(0 0 0 / 0.08);
+}
+
+.dark .glass {
+  border-color: oklch(1 0 0 / 0.12);
+  background: oklch(0.22 0.01 250 / 0.45);
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.12),
+    0 8px 32px oklch(0 0 0 / 0.4);
+}
+
+/* Auto-scrolling client strip: two copies of the row, each slides its own width */
+.marquee {
+  animation: marquee 36s linear infinite;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+}
+
+.marquee-mask:hover .marquee {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+  }
 }
 
 /* Cross-fade + lift when switching sectors or pages */
@@ -172,4 +234,19 @@
   --primary: var(--sector);
   --primary-foreground: var(--sector-foreground);
   --ring: var(--sector);
+}
+
+/* Brighter sector accents on dark surfaces, deep tints for soft fills */
+.dark [data-sector="consultancy"],
+[data-sector="consultancy"].dark {
+  --sector: oklch(0.72 0.08 250);
+  --sector-foreground: oklch(0.16 0.01 250);
+  --sector-soft: oklch(0.24 0.025 250);
+}
+
+.dark [data-sector="manpower"],
+[data-sector="manpower"].dark {
+  --sector: oklch(0.74 0.09 165);
+  --sector-foreground: oklch(0.16 0.01 165);
+  --sector-soft: oklch(0.24 0.03 165);
 }

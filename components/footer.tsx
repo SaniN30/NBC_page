@@ -15,6 +15,7 @@ export function Footer({ sector }: Readonly<{ sector: Sector }>) {
             alt="Neev Bridge Consultancy"
             width={132}
             height={88}
+            className="dark:brightness-0 dark:invert"
           />
           <p className="mt-3 text-sm leading-relaxed text-foreground/70">
             Connecting Vision | Building Solutions | Driving Growth. Engineering
@@ -61,6 +62,13 @@ export function Footer({ sector }: Readonly<{ sector: Sector }>) {
           </div>
         </nav>
       </div>
+      {/* ponytail: placeholder certifications + registration — swap for real ISO/licence/GST numbers */}
+      <p className="flex flex-wrap justify-center gap-x-8 gap-y-2 border-t border-border px-6 py-5 text-center text-xs text-foreground/60">
+        <span>ISO 9001:2015 certified</span>
+        <span>Govt. of India licensed manpower supplier</span>
+        <span>GSTIN: 00XXXXX0000X0X0</span>
+        <span>Registered office: Address placeholder, India</span>
+      </p>
       <p className="border-t border-border py-5 text-center text-xs text-foreground/60">
         © {new Date().getFullYear()} Neev Bridge Consultancy. All rights
         reserved.

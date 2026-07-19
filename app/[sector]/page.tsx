@@ -3,6 +3,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr"
 
+import { ClientStrip } from "@/components/client-strip"
 import { Footer } from "@/components/footer"
 import { Reveal } from "@/components/reveal"
 import { isSector, SECTOR_IMAGES, SECTOR_INFO } from "@/lib/sectors"
@@ -50,6 +51,23 @@ export default async function SectorHome({
                 />
               </Link>
             </div>
+            {/* ponytail: placeholder contact details — replace with the real phone/email */}
+            <p className="text-sm text-foreground/60">
+              Call{" "}
+              <a
+                href="tel:+910000000000"
+                className="font-medium text-foreground/80 hover:text-sector"
+              >
+                +91 00000 00000
+              </a>{" "}
+              · Email{" "}
+              <a
+                href="mailto:neevbridgeconsultancy@gmail.com"
+                className="font-medium text-foreground/80 hover:text-sector"
+              >
+                neevbridgeconsultancy@gmail.com
+              </a>
+            </p>
           </div>
           {images && (
             <div className="group relative overflow-hidden rounded-3xl shadow-xl shadow-black/10">
@@ -69,6 +87,8 @@ export default async function SectorHome({
           )}
         </div>
       </section>
+
+      <ClientStrip />
 
       {/* Services teaser */}
       <section className="mx-auto max-w-5xl px-6 py-24">

@@ -5,7 +5,14 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import type { MouseEvent } from "react"
-import { ArrowsLeftRight, List, X } from "@phosphor-icons/react"
+import {
+  ArrowsLeftRight,
+  List,
+  MoonStars,
+  SunDim,
+  X,
+} from "@phosphor-icons/react"
+import { useTheme } from "next-themes"
 
 import { cn } from "@/lib/utils"
 import { SECTOR_INFO, SUB_PAGES, type Sector } from "@/lib/sectors"
@@ -23,6 +30,7 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
     setHighlight({ left: link.offsetLeft, width: link.offsetWidth })
   }
   const other = SECTOR_INFO[sector].other
+  const { resolvedTheme, setTheme } = useTheme()
 
   // /consultancy/about -> /manpower/about, preserving the sub-page
   const switchHref = pathname.replace(`/${sector}`, `/${other}`)
@@ -48,6 +56,7 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
             alt="Neev Bridge Consultancy"
             width={84}
             height={56}
+            className="dark:brightness-0 dark:invert"
           />
         </Link>
 
@@ -95,6 +104,27 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
             <span className="hidden sm:inline">{SECTOR_INFO[other].name}</span>
             <span className="sm:hidden">Switch</span>
           </Link>
+          <button
+            type="button"
+            aria-label="Toggle dark mode"
+            onClick={() =>
+              setTheme(resolvedTheme === "dark" ? "light" : "dark")
+            }
+            className="group relative flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white/40 text-foreground/80 transition-colors hover:text-sector dark:border-white/15 dark:bg-white/10"
+          >
+            <SunDim
+              size={20}
+              weight="duotone"
+              aria-hidden
+              className="absolute scale-100 rotate-0 transition-all duration-500 ease-out group-hover:rotate-45 motion-reduce:transition-none dark:scale-0 dark:-rotate-90"
+            />
+            <MoonStars
+              size={18}
+              weight="duotone"
+              aria-hidden
+              className="absolute scale-0 rotate-90 transition-all duration-500 ease-out motion-reduce:transition-none dark:scale-100 dark:rotate-0 dark:group-hover:-rotate-12"
+            />
+          </button>
           <button
             type="button"
             aria-expanded={isOpen}
