@@ -5,8 +5,12 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: var(--font-mono);
+    --font-sans: var(--font-sans);
+    --font-heading: var(--font-sans);
     --font-mono: var(--font-mono);
+    --color-sector: var(--sector);
+    --color-sector-foreground: var(--sector-foreground);
+    --color-sector-soft: var(--sector-soft);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -124,6 +128,25 @@
     @apply bg-background text-foreground;
     }
   html {
-    @apply font-mono;
+    @apply font-sans;
     }
+}
+
+/* Per-sector accent themes: subtle, light, on a white base */
+[data-sector="consultancy"] {
+  --sector: oklch(0.45 0.06 250); /* muted steel blue */
+  --sector-foreground: oklch(0.99 0 0);
+  --sector-soft: oklch(0.965 0.012 250);
+  --primary: var(--sector);
+  --primary-foreground: var(--sector-foreground);
+  --ring: var(--sector);
+}
+
+[data-sector="manpower"] {
+  --sector: oklch(0.48 0.07 165); /* muted sage teal */
+  --sector-foreground: oklch(0.99 0 0);
+  --sector-soft: oklch(0.965 0.015 165);
+  --primary: var(--sector);
+  --primary-foreground: var(--sector-foreground);
+  --ring: var(--sector);
 }
