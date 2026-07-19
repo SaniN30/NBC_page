@@ -3,22 +3,53 @@
 import { useState } from "react"
 
 const CONTACT_EMAIL = "neevbridgeconsultancy@gmail.com"
+/* Web3Forms delivers submissions to the email that created this key.
+   Get one instantly at https://web3forms.com (enter the Gmail above). */
+const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY
+
+type Status = "idle" | "sending" | "sent" | "error"
 
 export function ContactForm() {
-  const [isSent, setIsSent] = useState(false)
+  const [status, setStatus] = useState<Status>("idle")
 
-  // ponytail: mailto handoff — swap for an API route + email service when one exists
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    const subject = encodeURIComponent(
-      `Enquiry from ${String(data.get("name"))}`
-    )
-    const body = encodeURIComponent(
-      `Name: ${String(data.get("name"))}\nEmail: ${String(data.get("email"))}\n\n${String(data.get("message"))}`
-    )
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`
-    setIsSent(true)
+    const form = event.currentTarget
+    const data = new FormData(form)
+
+    // ponytail: mailto fallback until NEXT_PUBLIC_WEB3FORMS_KEY is configured
+    if (!WEB3FORMS_KEY) {
+      const subject = encodeURIComponent(
+        `Enquiry from ${String(data.get("name"))}`
+      )
+      const body = encodeURIComponent(
+        `Name: ${String(data.get("name"))}\nEmail: ${String(data.get("email"))}\n\n${String(data.get("message"))}`
+      )
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`
+      setStatus("sent")
+      return
+    }
+
+    setStatus("sending")
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `Website enquiry from ${String(data.get("name"))}`,
+          name: String(data.get("name")),
+          email: String(data.get("email")),
+          message: String(data.get("message")),
+        }),
+      })
+      const result = (await response.json()) as { success?: boolean }
+      if (!response.ok || !result.success) throw new Error("submit failed")
+      form.reset()
+      setStatus("sent")
+    } catch {
+      setStatus("error")
+    }
   }
 
   return (
@@ -57,14 +88,22 @@ export function ContactForm() {
       </label>
       <button
         type="submit"
-        className="rounded-full bg-sector px-6 py-3 font-medium text-sector-foreground transition-opacity hover:opacity-90"
+        disabled={status === "sending"}
+        className="rounded-full bg-sector px-6 py-3 font-medium text-sector-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
       >
-        Send message
+        {status === "sending" ? "Sending…" : "Send message"}
       </button>
-      {isSent && (
+      {status === "sent" && (
         <p role="status" className="text-sm text-foreground/70">
-          Your email app should have opened with the message ready to send. If
-          not, write to us directly at {CONTACT_EMAIL}.
+          {WEB3FORMS_KEY
+            ? "Thank you — your message has been sent. We respond within one business day."
+            : `Your email app should have opened with the message ready to send. If not, write to us directly at ${CONTACT_EMAIL}.`}
+        </p>
+      )}
+      {status === "error" && (
+        <p role="status" className="text-sm text-destructive">
+          Something went wrong sending your message. Please email us directly at{" "}
+          {CONTACT_EMAIL}.
         </p>
       )}
     </form>
