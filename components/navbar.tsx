@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
+import type { MouseEvent } from "react"
 import { ArrowsLeftRight, List, X } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
@@ -12,6 +13,15 @@ import { SECTOR_INFO, SUB_PAGES, type Sector } from "@/lib/sectors"
 export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
+  const [highlight, setHighlight] = useState<{
+    left: number
+    width: number
+  } | null>(null)
+
+  const moveHighlight = (event: MouseEvent<HTMLAnchorElement>) => {
+    const link = event.currentTarget
+    setHighlight({ left: link.offsetLeft, width: link.offsetWidth })
+  }
   const other = SECTOR_INFO[sector].other
 
   // /consultancy/about -> /manpower/about, preserving the sub-page
@@ -26,7 +36,7 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
     <header className="fixed inset-x-0 top-4 z-40 flex justify-center px-4">
       <nav
         aria-label="Main"
-        className="flex w-full max-w-3xl items-center justify-between gap-2 rounded-full border border-white/40 bg-white/60 py-2 pr-2 pl-4 shadow-lg shadow-black/5 backdrop-blur-xl"
+        className="glass flex w-full max-w-3xl items-center justify-between gap-2 rounded-full py-2 pr-2 pl-4"
       >
         <Link
           href={`/${sector}`}
@@ -36,19 +46,35 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
           <Image
             src="/logo.png"
             alt="Neev Bridge Consultancy"
-            width={44}
-            height={44}
+            width={84}
+            height={56}
           />
         </Link>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul
+          className="relative hidden items-center gap-1 md:flex"
+          onMouseLeave={() => setHighlight(null)}
+        >
+          <span
+            aria-hidden
+            className={cn(
+              "absolute top-0 h-full rounded-full bg-sector/10 transition-all duration-300 ease-out motion-reduce:transition-none",
+              highlight ? "opacity-100" : "opacity-0"
+            )}
+            style={
+              highlight
+                ? { left: highlight.left, width: highlight.width }
+                : undefined
+            }
+          />
           {links.map(({ href, label, isActive }) => (
             <li key={href}>
               <Link
                 href={href}
                 aria-current={isActive ? "page" : undefined}
+                onMouseEnter={moveHighlight}
                 className={cn(
-                  "rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                  "relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
                   isActive
                     ? "bg-sector-soft text-sector"
                     : "text-foreground/70 hover:text-foreground"
@@ -86,7 +112,7 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
       </nav>
 
       {isOpen && (
-        <div className="absolute inset-x-4 top-full mt-2 animate-in rounded-3xl border border-white/40 bg-white/80 p-2 shadow-lg shadow-black/5 backdrop-blur-xl duration-200 fade-in slide-in-from-top-2 md:hidden">
+        <div className="glass absolute inset-x-4 top-full mt-2 animate-in rounded-3xl p-2 duration-200 fade-in slide-in-from-top-2 md:hidden">
           <ul>
             {links.map(({ href, label, isActive }) => (
               <li key={href}>

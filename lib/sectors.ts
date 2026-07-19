@@ -15,6 +15,8 @@ export interface SectorInfo {
   other: Sector
   services: SectorService[]
   approach: { title: string; description: string }[]
+  /* Industries/fields this sector staffs; rendered only when present */
+  staffingSectors?: { name: string; description: string }[]
 }
 
 export const SECTOR_INFO: Record<Sector, SectorInfo> = {
@@ -99,6 +101,38 @@ export const SECTOR_INFO: Record<Sector, SectorInfo> = {
         title: "Support on site",
         description:
           "Ongoing workforce administration and replacement cover for the life of the contract.",
+      },
+    ],
+    staffingSectors: [
+      {
+        name: "Petroleum & Fertilizer",
+        description:
+          "Operators, technicians, and maintenance crews for refineries, petrochemical units, and fertilizer plants.",
+      },
+      {
+        name: "Engineering & Construction",
+        description:
+          "Civil, mechanical, electrical, and instrumentation professionals for projects and EPC contractors.",
+      },
+      {
+        name: "Hotel & Hospitality",
+        description:
+          "Front-office staff, housekeeping teams, chefs, and F&B service crews for hotels and catering operations.",
+      },
+      {
+        name: "Facility Management",
+        description:
+          "Housekeeping, security, and technical maintenance staff for offices, plants, and institutions.",
+      },
+      {
+        name: "Healthcare Support",
+        description:
+          "Paramedical staff, nursing assistants, and support personnel for hospitals and site clinics.",
+      },
+      {
+        name: "Logistics & Warehousing",
+        description:
+          "Drivers, warehouse operators, and material-handling crews for supply chains that run around the clock.",
       },
     ],
   },

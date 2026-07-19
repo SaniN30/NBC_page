@@ -29,7 +29,9 @@ export default async function SectorHome({
             <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
               {info.headline}
             </h1>
-            <p className="max-w-xl text-lg text-foreground/70">{info.tagline}</p>
+            <p className="max-w-xl text-lg text-foreground/70">
+              {info.tagline}
+            </p>
             <div className="mt-2 flex flex-wrap gap-3">
               <Link
                 href={`/${sector}/contact`}
@@ -50,14 +52,14 @@ export default async function SectorHome({
             </div>
           </div>
           {images && (
-            <div className="group relative hidden overflow-hidden rounded-3xl shadow-xl shadow-black/10 lg:block">
+            <div className="group relative overflow-hidden rounded-3xl shadow-xl shadow-black/10">
               <Image
                 src={images.hero.src}
                 alt={images.hero.alt}
                 width={960}
                 height={640}
                 priority
-                className="h-[30rem] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                className="h-56 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:h-72 lg:h-[30rem]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               <p className="absolute bottom-5 left-6 font-medium text-white">
@@ -129,7 +131,11 @@ export default async function SectorHome({
                   "Urea, ammonia, and phosphate plants — continuous processes with zero room for downtime.",
               },
             ].map((industry, index) => (
-              <Reveal key={industry.name} delay={index * 120} className="flex-1">
+              <Reveal
+                key={industry.name}
+                delay={index * 120}
+                className="flex-1"
+              >
                 <div className="group h-full overflow-hidden rounded-3xl border border-border bg-background transition-shadow duration-300 hover:shadow-xl hover:shadow-black/10">
                   {images && (
                     <div className="overflow-hidden">
@@ -154,6 +160,35 @@ export default async function SectorHome({
           </div>
         </div>
       </section>
+
+      {/* Staffing sectors (manpower only) */}
+      {info.staffingSectors && (
+        <section className="mx-auto max-w-5xl px-6 py-24">
+          <Reveal>
+            <h2 className="text-3xl font-semibold tracking-tight text-balance">
+              Manpower across sectors
+            </h2>
+            <p className="mt-4 max-w-xl text-foreground/70">
+              Beyond petroleum and fertilizer, we supply skilled and support
+              staff wherever dependable people keep operations running.
+            </p>
+          </Reveal>
+          <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+            {info.staffingSectors.map((field, index) => (
+              <Reveal key={field.name} delay={index * 80}>
+                <div className="group border-t border-border pt-6 transition-transform duration-300 hover:translate-x-2">
+                  <h3 className="text-lg font-medium transition-colors group-hover:text-sector">
+                    {field.name}
+                  </h3>
+                  <p className="mt-2 leading-relaxed text-foreground/70">
+                    {field.description}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Approach */}
       <section className="mx-auto max-w-5xl px-6 py-24">

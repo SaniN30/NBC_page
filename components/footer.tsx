@@ -13,8 +13,8 @@ export function Footer({ sector }: Readonly<{ sector: Sector }>) {
           <Image
             src="/logo.png"
             alt="Neev Bridge Consultancy"
-            width={72}
-            height={72}
+            width={132}
+            height={88}
           />
           <p className="mt-3 text-sm leading-relaxed text-foreground/70">
             Connecting Vision | Building Solutions | Driving Growth. Engineering
