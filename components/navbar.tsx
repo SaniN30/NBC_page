@@ -39,7 +39,7 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
         className="glass flex w-full max-w-3xl items-center justify-between gap-2 rounded-full py-2 pr-2 pl-4"
       >
         <Link
-          href={`/${sector}`}
+          href="/"
           className="shrink-0"
           aria-label="Neev Bridge Consultancy home"
         >
