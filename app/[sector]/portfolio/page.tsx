@@ -6,7 +6,10 @@ import { isSector, type Sector } from "@/lib/sectors"
 export const metadata = { title: "Portfolio" }
 
 /* ponytail: placeholder portfolio entries — swap for real projects when the client provides them */
-const PROJECTS: Record<Sector, { title: string; scope: string; note: string }[]> = {
+const PROJECTS: Record<
+  Sector,
+  { title: string; scope: string; note: string }[]
+> = {
   consultancy: [
     {
       title: "Refinery unit debottlenecking study",

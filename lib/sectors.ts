@@ -104,6 +104,37 @@ export const SECTOR_INFO: Record<Sector, SectorInfo> = {
   },
 }
 
+export interface SectorImages {
+  hero: { src: string; alt: string }
+  industries: { src: string; alt: string }[]
+  band: { src: string; alt: string; caption: string }
+}
+
+/* Only consultancy has imagery so far; manpower renders imageless until assets arrive */
+export const SECTOR_IMAGES: Partial<Record<Sector, SectorImages>> = {
+  consultancy: {
+    hero: {
+      src: "/consultancy-refinery.jpg",
+      alt: "Oil refinery illuminated at dusk",
+    },
+    industries: [
+      {
+        src: "/consultancy-plant.jpg",
+        alt: "Process units and piping inside a petroleum plant",
+      },
+      {
+        src: "/consultancy-terminal.jpg",
+        alt: "Storage spheres and loading terminal at night",
+      },
+    ],
+    band: {
+      src: "/consultancy-complex.jpg",
+      alt: "Coastal energy and nutrients complex at night",
+      caption: "From process units to complete complexes",
+    },
+  },
+}
+
 export function isSector(value: string): value is Sector {
   return (SECTORS as readonly string[]).includes(value)
 }

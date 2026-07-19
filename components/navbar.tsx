@@ -33,7 +33,12 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
           className="shrink-0"
           aria-label="Neev Bridge Consultancy home"
         >
-          <Image src="/logo.png" alt="Neev Bridge Consultancy" width={44} height={44} />
+          <Image
+            src="/logo.png"
+            alt="Neev Bridge Consultancy"
+            width={44}
+            height={44}
+          />
         </Link>
 
         <ul className="hidden items-center gap-1 md:flex">
@@ -58,7 +63,7 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
         <div className="flex items-center gap-2">
           <Link
             href={switchHref}
-            className="bg-sector text-sector-foreground hover:opacity-90 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-opacity"
+            className="flex items-center gap-2 rounded-full bg-sector px-4 py-2 text-sm font-medium text-sector-foreground transition-opacity hover:opacity-90"
           >
             <ArrowsLeftRight aria-hidden />
             <span className="hidden sm:inline">{SECTOR_INFO[other].name}</span>
@@ -71,13 +76,17 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
             onClick={() => setIsOpen((open) => !open)}
             className="flex size-9 items-center justify-center rounded-full text-foreground/80 md:hidden"
           >
-            {isOpen ? <X size={20} aria-hidden /> : <List size={20} aria-hidden />}
+            {isOpen ? (
+              <X size={20} aria-hidden />
+            ) : (
+              <List size={20} aria-hidden />
+            )}
           </button>
         </div>
       </nav>
 
       {isOpen && (
-        <div className="animate-in fade-in slide-in-from-top-2 absolute inset-x-4 top-full mt-2 rounded-3xl border border-white/40 bg-white/80 p-2 shadow-lg shadow-black/5 backdrop-blur-xl duration-200 md:hidden">
+        <div className="absolute inset-x-4 top-full mt-2 animate-in rounded-3xl border border-white/40 bg-white/80 p-2 shadow-lg shadow-black/5 backdrop-blur-xl duration-200 fade-in slide-in-from-top-2 md:hidden">
           <ul>
             {links.map(({ href, label, isActive }) => (
               <li key={href}>
@@ -87,7 +96,9 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
                     "block rounded-2xl px-4 py-3 font-medium",
-                    isActive ? "bg-sector-soft text-sector" : "text-foreground/80"
+                    isActive
+                      ? "bg-sector-soft text-sector"
+                      : "text-foreground/80"
                   )}
                 >
                   {label}
