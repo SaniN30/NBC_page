@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google"
 
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
 const fontSans = Hanken_Grotesk({
@@ -32,9 +31,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontSans.variable, fontMono.variable)}
     >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
