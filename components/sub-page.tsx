@@ -1,23 +1,28 @@
-import { notFound } from "next/navigation"
+import { Footer } from "@/components/footer"
+import { SECTOR_INFO, type Sector } from "@/lib/sectors"
 
-import { isSector, SECTOR_INFO } from "@/lib/sectors"
-
-interface SubPageProps {
-  params: Promise<{ sector: string }>
+interface PageShellProps {
+  sector: Sector
   title: string
-  description: string
+  intro: string
+  children?: React.ReactNode
 }
 
-/* Phase-1 placeholder shell; real content lands in Phase 4 */
-export async function SubPage({ params, title, description }: SubPageProps) {
-  const { sector } = await params
-  if (!isSector(sector)) notFound()
-
+/* Shared shell for sub-pages: header + content + footer */
+export function PageShell({ sector, title, intro, children }: PageShellProps) {
   return (
-    <main className="mx-auto flex min-h-svh max-w-4xl flex-col justify-center gap-4 px-6">
-      <p className="font-medium text-sector">{SECTOR_INFO[sector].name}</p>
-      <h1 className="text-4xl font-semibold tracking-tight">{title}</h1>
-      <p className="max-w-prose text-lg text-muted-foreground">{description}</p>
-    </main>
+    <>
+      <header className="mx-auto max-w-5xl px-6 pt-40 pb-16">
+        <p className="font-medium text-sector">{SECTOR_INFO[sector].name}</p>
+        <h1 className="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+          {title}
+        </h1>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-foreground/70">
+          {intro}
+        </p>
+      </header>
+      {children}
+      <Footer sector={sector} />
+    </>
   )
 }
