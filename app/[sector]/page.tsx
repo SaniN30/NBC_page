@@ -57,14 +57,13 @@ export default async function SectorHome({
                 />
               </Link>
             </div>
-            {/* ponytail: placeholder contact details — replace with the real phone/email */}
             <p className="text-sm text-foreground/60">
               Call{" "}
               <a
-                href="tel:+910000000000"
+                href="tel:+919289939303"
                 className="font-medium text-foreground/80 hover:text-sector"
               >
-                +91 00000 00000
+                +91 92899 39303
               </a>{" "}
               · Email{" "}
               <a

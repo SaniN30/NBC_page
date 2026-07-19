@@ -32,8 +32,12 @@ export default async function ContactPage({
           </div>
           <div>
             <p className="font-semibold">Phone</p>
-            {/* ponytail: placeholder contact details — replace with real ones */}
-            <p className="text-foreground/70">+91 XXXXX XXXXX</p>
+            <a
+              href="tel:+919289939303"
+              className="text-foreground/70 hover:text-sector"
+            >
+              +91 92899 39303
+            </a>
           </div>
           <div>
             <p className="font-semibold">Office</p>
