@@ -44,7 +44,7 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
     <header className="fixed inset-x-0 top-4 z-40 flex justify-center px-4">
       <nav
         aria-label="Main"
-        className="glass flex w-full max-w-3xl items-center justify-between gap-2 rounded-full py-2 pr-2 pl-4"
+        className="glass flex w-full max-w-4xl items-center justify-between gap-2 rounded-full py-2 pr-2 pl-4"
       >
         <Link
           href="/"
@@ -83,7 +83,7 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
                 aria-current={isActive ? "page" : undefined}
                 onMouseEnter={moveHighlight}
                 className={cn(
-                  "relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                  "relative rounded-full px-3.5 py-2 text-sm font-medium whitespace-nowrap transition-colors",
                   isActive
                     ? "bg-sector-soft text-sector"
                     : "text-foreground/70 hover:text-foreground"
@@ -98,10 +98,13 @@ export function Navbar({ sector }: Readonly<{ sector: Sector }>) {
         <div className="flex items-center gap-2">
           <Link
             href={switchHref}
-            className="flex items-center gap-2 rounded-full bg-sector px-4 py-2 text-sm font-medium text-sector-foreground transition-opacity hover:opacity-90"
+            className="flex items-center gap-2 rounded-full bg-sector px-4 py-2 text-sm font-medium whitespace-nowrap text-sector-foreground transition-opacity hover:opacity-90"
           >
-            <ArrowsLeftRight aria-hidden />
-            <span className="hidden sm:inline">{SECTOR_INFO[other].name}</span>
+            <ArrowsLeftRight aria-hidden className="shrink-0" />
+            <span className="hidden lg:inline">{SECTOR_INFO[other].name}</span>
+            <span className="hidden sm:inline lg:hidden">
+              {SECTOR_INFO[other].shortName}
+            </span>
             <span className="sm:hidden">Switch</span>
           </Link>
           <button

@@ -24,7 +24,13 @@ export default async function SectorHome({
           aria-hidden
           className="absolute -top-40 right-[-20%] size-[34rem] rounded-full bg-sector-soft blur-3xl"
         />
-        <div className="relative mx-auto grid min-h-svh max-w-6xl items-center gap-10 px-6 pt-28 pb-16 lg:grid-cols-[1.1fr_1fr]">
+        <div
+          className={
+            images
+              ? "relative mx-auto grid min-h-svh max-w-6xl items-center gap-10 px-6 pt-28 pb-16 lg:grid-cols-[1.1fr_1fr]"
+              : "relative mx-auto grid min-h-svh max-w-6xl items-center gap-10 px-6 pt-28 pb-16"
+          }
+        >
           <div className="flex flex-col items-start gap-6">
             <p className="font-medium text-sector">{info.name}</p>
             <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
