@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google"
 
 import "./globals.css"
+import { IntroSplash } from "@/components/intro-splash"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
@@ -33,7 +34,10 @@ export default function RootLayout({
       className={cn("antialiased", fontSans.variable, fontMono.variable)}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <IntroSplash />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
